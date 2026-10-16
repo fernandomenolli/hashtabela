@@ -7,9 +7,13 @@ Online em **https://sabero.io/hash/**. A home de [sabero.io](https://sabero.io) 
 ## Como usar
 1. Use em https://sabero.io/hash/ ou baixe `hash/index.html` e abra com dois cliques (funciona via `file://`, sem internet).
 2. Clique em **Escolher arquivos**, **Escolher pasta** ou arraste arquivos/pastas para a área indicada.
-3. (Opcional) Preencha o cabeçalho: operador, referência, dispositivo de origem.
+3. (Opcional) Preencha o cabeçalho: operador, referência, dispositivo de origem. O ícone **(?)** ao lado de cada campo e opção explica o que preencher (funciona com mouse, teclado e toque).
 4. (Opcional) Marque **Incluir data de modificação**.
-5. Use **Copiar tabela** (cola formatada no Word, Google Docs e LibreOffice), **Exportar CSV** ou **Exportar HTML**.
+5. Use **Copiar tabela** (cola formatada no Word, Google Docs e LibreOffice), **Exportar CSV**, **Exportar HTML**, **Exportar TXT** ou **Exportar PDF**.
+
+## TXT e PDF
+- **Exportar TXT**: tabela em texto puro, UTF-8, colunas alinhadas (fonte monoespaçada), com o cabeçalho, a data e hora de geração e os hashes completos.
+- **Exportar PDF**: abre a impressão do navegador só com a tabela (A4 paisagem); escolha **Salvar como PDF**. O PDF é gerado pelo próprio navegador, sem biblioteca externa nem envio a servidor, e traz o cabeçalho, a data e hora de geração e os hashes completos em uma linha.
 
 ## Manifesto (.sha256)
 **Exportar manifesto** gera um arquivo no formato padrão do `sha256sum` (`<hash>  <caminho relativo>`, uma linha por arquivo, LF, UTF-8). Os metadados (ferramenta e versão, data e hora da geração, operador, referência, dispositivo de origem) ficam em linhas de comentário `#` no topo, que o `sha256sum -c` do GNU coreutils ignora (testado na versão 9.7, inclusive com `--strict`).

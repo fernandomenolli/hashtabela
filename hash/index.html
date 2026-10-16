@@ -31,8 +31,8 @@ button:focus-visible,.btn:focus-within,input:focus-visible{outline:3px solid #80
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 fieldset{border:0;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-label.f{display:flex;flex-direction:column;font-size:.9rem;color:var(--muted)}
-label.f input{font:inherit;padding:6px 8px;border:1px solid var(--bd);border-radius:6px;color:var(--fg)}
+.f{display:flex;flex-direction:column;font-size:.9rem;color:var(--muted)}
+.f input{font:inherit;padding:6px 8px;border:1px solid var(--bd);border-radius:6px;color:var(--fg)}
 progress{width:100%;height:14px}
 #status{color:var(--muted);min-height:1.5em}
 table{border-collapse:collapse;width:100%}
@@ -43,6 +43,24 @@ td.mono{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:.85r
 td.num{text-align:right;white-space:nowrap}
 .note{font-size:.85rem;color:var(--muted)}
 .err{color:var(--err)}
+.lh{position:relative;display:inline-flex;align-items:center;gap:6px}
+.tw{display:inline-flex}
+.tip{width:22px;height:22px;padding:0;border-radius:50%;font-size:.8rem;font-weight:700;line-height:1;color:var(--acc)}
+.tt{display:none;position:absolute;z-index:10;top:calc(100% + 6px);left:0;width:max-content;max-width:min(260px,80vw);padding:8px 10px;border-radius:6px;background:var(--fg);color:#fff;font-size:.85rem;line-height:1.4;font-weight:400}
+@media (hover:hover){.tip:not(.x):hover+.tt{display:block}}
+.tip:not(.x):focus-visible+.tt,.tip[aria-expanded=true]+.tt{display:block}
+#pr{display:none}
+@media print{
+ @page{size:A4 landscape;margin:12mm}
+ body.pr{background:#fff;font:10pt Arial,sans-serif}
+ body.pr>main{display:none}
+ body.pr #pr{display:block}
+ #pr td,#pr th{font-size:9pt}
+ #pr td:nth-child(2){word-break:break-all}
+ #pr td:nth-child(4){white-space:nowrap;word-break:normal;font-size:8pt}
+ #pr tr{break-inside:avoid}
+ #pr thead{display:table-header-group}
+}
 </style>
 </head>
 <body>
@@ -65,12 +83,12 @@ td.num{text-align:right;white-space:nowrap}
 <section aria-labelledby="t2">
 <h2 id="t2" style="margin-top:0;font-size:1.05rem">Cabeçalho (opcional)</h2>
 <fieldset>
-<label class="f">Operador<input id="hOp" autocomplete="name"></label>
-<label class="f">Referência<input id="hRef"></label>
-<label class="f">Dispositivo de origem<input id="hDev"></label>
+<div class="f"><span class="lh"><label for="hOp">Operador</label><span class="tw"><button type="button" class="tip" aria-label="Ajuda: Operador" aria-describedby="ttOp" aria-expanded="false">?</button><span role="tooltip" id="ttOp" class="tt">Nome de quem gerou a tabela.</span></span></span><input id="hOp" autocomplete="name" aria-describedby="ttOp"></div>
+<div class="f"><span class="lh"><label for="hRef">Referência</label><span class="tw"><button type="button" class="tip" aria-label="Ajuda: Referência" aria-describedby="ttRef" aria-expanded="false">?</button><span role="tooltip" id="ttRef" class="tt">Identificador livre do trabalho, para achar a tabela depois. Ex.: nº de protocolo, chamado ou caso interno.</span></span></span><input id="hRef" aria-describedby="ttRef"></div>
+<div class="f"><span class="lh"><label for="hDev">Dispositivo de origem</label><span class="tw"><button type="button" class="tip" aria-label="Ajuda: Dispositivo de origem" aria-describedby="ttDev" aria-expanded="false">?</button><span role="tooltip" id="ttDev" class="tt">De onde vieram os arquivos. Ex.: pendrive, HD externo ou celular modelo X.</span></span></span><input id="hDev" aria-describedby="ttDev"></div>
 </fieldset>
-<p class="row" style="margin:12px 0 0"><label><input type="checkbox" id="optDate"> Incluir data de modificação</label>
-<label><input type="checkbox" id="optPath" checked> Mostrar caminho relativo (pastas)</label></p>
+<p class="row" style="margin:12px 0 0"><span class="lh"><label><input type="checkbox" id="optDate" aria-describedby="ttDate"> Incluir data de modificação</label><span class="tw"><button type="button" class="tip" aria-label="Ajuda: Incluir data de modificação" aria-describedby="ttDate" aria-expanded="false">?</button><span role="tooltip" id="ttDate" class="tt">Adiciona a data em que cada arquivo foi alterado pela última vez, segundo o sistema de arquivos. Cópias e downloads podem mudar essa data.</span></span></span>
+<span class="lh"><label><input type="checkbox" id="optPath" checked aria-describedby="ttPath"> Mostrar caminho relativo (pastas)</label><span class="tw"><button type="button" class="tip" aria-label="Ajuda: Mostrar caminho relativo" aria-describedby="ttPath" aria-expanded="false">?</button><span role="tooltip" id="ttPath" class="tt">Ao escolher uma pasta, mostra o caminho de cada arquivo dentro dela (ex.: fotos/img1.jpg) em vez de só o nome.</span></span></span></p>
 </section>
 
 <section aria-labelledby="t3">
@@ -81,6 +99,8 @@ td.num{text-align:right;white-space:nowrap}
 <button id="bCopy" class="pri" disabled>Copiar tabela</button>
 <button id="bCsv" disabled>Exportar CSV</button>
 <button id="bHtml" disabled>Exportar HTML</button>
+<button id="bTxt" disabled>Exportar TXT</button>
+<button id="bPdf" disabled>Exportar PDF</button>
 <button id="bMan" disabled>Exportar manifesto (.sha256)</button>
 <button id="bCancel" disabled>Cancelar</button>
 <button id="bClear" disabled>Limpar</button>
@@ -104,6 +124,7 @@ td.num{text-align:right;white-space:nowrap}
 <div id="vout"></div>
 </section>
 </main>
+<div id="pr"></div>
 <script>
 "use strict";
 // ---- SHA-256 incremental (para arquivos grandes) ----
@@ -150,7 +171,7 @@ function tableHTML(forExport){
 function tableText(){const hd=header().map(([k,v])=>k+": "+v);const L=[...hd,...(hd.length?[""]:[]),cols().join("\t"),...rows.map((r,i)=>vals(r,i).join("\t"))];return L.join("\r\n");}
 function render(){
  $("out").innerHTML=rows.length?('<table><caption class="vh">Hashes SHA-256</caption><thead><tr>'+cols().map(c=>'<th scope="col">'+esc(c)+"</th>").join("")+"</tr></thead><tbody>"+rows.map((r,i)=>"<tr>"+vals(r,i).map((v,j)=>"<td"+(j===3?' class="mono'+(r.err?' err':'')+'"':j===0||j===2?' class="num"':"")+">"+esc(v)+"</td>").join("")+"</tr>").join("")+"</tbody></table>"):"";
- const done=rows.length&&!busy;["bCopy","bCsv","bHtml","bMan","bClear"].forEach(b=>$(b).disabled=!done);$("bCancel").disabled=!busy;}
+ const done=rows.length&&!busy;["bCopy","bCsv","bHtml","bTxt","bPdf","bMan","bClear"].forEach(b=>$(b).disabled=!done);$("bCancel").disabled=!busy;}
 async function process(files){
  if(busy||!files.length)return;files=files.filter(f=>f&&f.size!==undefined);
  const rels=relPaths(files);rows=files.map((f,i)=>({rel:rels[i],name:nameOf(f),size:f.size,mtime:f.lastModified,hash:"",err:""}));
@@ -183,6 +204,25 @@ const csvq=v=>{v=String(v);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return '"'+v.replac
 function csv(){const L=header().map(([k,v])=>csvq(k)+";"+csvq(v));if(L.length)L.push("");L.push(cols().map(csvq).join(";"));
  rows.forEach((r,i)=>{const v=[i+1,r.name,r.size,r.hash||r.err];if($("optDate").checked)v.push(r.mtime?new Date(r.mtime).toISOString():"");L.push(v.map(csvq).join(";"));});return "\uFEFF"+L.join("\r\n");}
 $("bCsv").onclick=()=>download(`hashes-${stamp()}.csv`,"text/csv;charset=utf-8",csv());
+// Texto puro alinhado (larguras por ponto de código, após NFC)
+const wlen=s=>[...String(s).normalize("NFC")].length;
+function tableTxt(){const c=cols(),V=rows.map((r,i)=>vals(r,i).map(v=>oneLine(v).normalize("NFC")));
+ const w=c.map((h,j)=>Math.max(wlen(h),...V.map(v=>wlen(v[j]))));const right=j=>j===0||j===2;
+ const line=v=>v.map((x,j)=>{const p=" ".repeat(w[j]-wlen(x));return right(j)?p+x:x+p;}).join("  ").trimEnd();
+ const L=["Hashes SHA-256 - "+TOOL+" "+VERSION,"Gerado em: "+new Date().toLocaleString("pt-BR"),...header().map(([k,v])=>k+": "+oneLine(v)),"",line(c),w.map(n=>"-".repeat(n)).join("  "),...V.map(line)];
+ return L.join("\r\n")+"\r\n";}
+$("bTxt").onclick=()=>download(`hashes-${stamp()}.txt`,"text/plain;charset=utf-8",tableTxt());
+// PDF: impressão do navegador (Salvar como PDF), só com a tabela
+$("bPdf").onclick=()=>{const t=document.title;$("pr").innerHTML="<h1 style=\"font-size:14pt;margin:0 0 8px\">Hashes SHA-256</h1>"+tableHTML(true);
+ document.body.classList.add("pr");document.title=`hashes-${stamp()}`;
+ addEventListener("afterprint",()=>{document.body.classList.remove("pr");document.title=t;},{once:true});print();};
+// Ajuda (?): hover e foco via CSS; clique/toque alterna; Esc ou clique fora fecha
+const tips=[...document.querySelectorAll(".tip")];
+const closeTips=x=>tips.forEach(b=>{if(b!==x)b.setAttribute("aria-expanded","false");});
+tips.forEach(b=>b.addEventListener("click",()=>{closeTips(b);b.setAttribute("aria-expanded",String(b.getAttribute("aria-expanded")!=="true"));}));
+document.addEventListener("click",e=>{if(!e.target.closest(".tip"))closeTips();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeTips();tips.forEach(b=>b.matches(":hover,:focus")&&b.classList.add("x"));}});
+tips.forEach(b=>["blur","mouseleave"].forEach(t=>b.addEventListener(t,()=>b.classList.remove("x"))));
 $("bHtml").onclick=()=>download(`hashes-${stamp()}.html`,"text/html;charset=utf-8",'<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Hashes SHA-256</title></head><body style="font-family:Arial,sans-serif;font-size:11pt">'+tableHTML(true)+"</body></html>");
 $("bCopy").onclick=async()=>{const html=tableHTML(),text=tableText();
  try{await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([html],{type:"text/html"}),"text/plain":new Blob([text],{type:"text/plain"})})]);ok();}
@@ -193,7 +233,7 @@ $("bCopy").onclick=async()=>{const html=tableHTML(),text=tableText();
  function ok(){$("status").textContent="Tabela copiada. Cole no Word, Google Docs ou LibreOffice.";}};
 
 // ---- Manifesto ----
-const TOOL="HashTabela",VERSION="1.1.0";
+const TOOL="HashTabela",VERSION="1.2.0";
 function relPaths(files){const ps=files.map(f=>(f._path||f.webkitRelativePath||f.name).replace(/^\/+/,""));
  // remove a pasta raiz comum (o sha256sum -c roda de dentro dela)
  if(ps.length&&ps.every(x=>x.includes("/"))){const r=ps[0].split("/")[0]+"/";if(ps.every(x=>x.startsWith(r)))return ps.map(x=>x.slice(r.length));}
