@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boas práticas de integridade de arquivos · Sabero</title>
+<meta name="description" content="Checklist genérico para preservar e demonstrar a integridade de arquivos: quando calcular o hash, o que registrar, cópias, manifestos e os erros mais comuns.">
+<meta name="author" content="Fernando Menolli Neto">
+<link rel="canonical" href="https://sabero.io/artigos/boas-praticas-integridade-de-arquivos/">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Sabero">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boas práticas de integridade de arquivos · Sabero">
+<meta property="og:description" content="Checklist genérico para preservar e demonstrar a integridade de arquivos: quando calcular o hash, o que registrar, cópias, manifestos e os erros mais comuns.">
+<meta property="og:url" content="https://sabero.io/artigos/boas-praticas-integridade-de-arquivos/">
+<meta property="og:image" content="https://sabero.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sabero: integridade de arquivos e prova digital">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Boas práticas de integridade de arquivos", "inLanguage": "pt-BR", "dateModified": "2026-10-15", "author": {"@type": "Person", "name": "Fernando Menolli Neto"}, "publisher": {"@type": "Organization", "name": "Sabero", "url": "https://sabero.io/"}, "mainEntityOfPage": "https://sabero.io/artigos/boas-praticas-integridade-de-arquivos/"}</script>
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="hd"><div class="wrap">
+<a class="brand" href="/" aria-label="Sabero, página inicial"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="var(--acc)"/><path d="M10 6.5 8.6 17.5M15.4 6.5 14 17.5M6.5 10h11.5M6 14h11.5" stroke="var(--bg)" stroke-width="1.9" stroke-linecap="round"/></svg>Sabero</a>
+<nav class="nav" aria-label="Principal"><a href="/hash/">HashTabela</a><a href="/guia/">Guia</a><a href="/artigos/" aria-current="page">Artigos</a><a href="/sobre/">Sobre</a></nav>
+<button class="theme" type="button" aria-label="Alternar tema claro ou escuro" title="Alternar tema"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
+</div></header>
+<main id="main" class="wrap page">
+<article class="prose">
+<p class="crumb"><a href="/artigos/">Artigos</a></p>
+<h1>Boas práticas de integridade de arquivos</h1>
+<p class="meta">Fernando Menolli Neto · atualizado em 15/10/2026</p>
+<p>Práticas genéricas, úteis para qualquer pessoa que precise mostrar, mais tarde, que um arquivo não mudou: um documento de contrato, uma exportação de conversa, um backup, uma prova apresentada num processo. Não substituem as normas do órgão ou da empresa em que você atua.</p>
+
+<h2>Antes de tudo</h2>
+<ul>
+<li><strong>Calcule o hash o quanto antes</strong>, sobre o arquivo exatamente como foi recebido, antes de abrir, renomear pastas, descompactar ou converter. O hash só protege o que aconteceu <em>depois</em> do cálculo.</li>
+<li><strong>Preserve o original e trabalhe em cópias.</strong> Confira que a cópia tem o mesmo hash do original antes de usá-la. Evite gravar qualquer coisa na mídia de origem.</li>
+<li><strong>Use SHA-256</strong> (ou superior). MD5 e SHA-1 podem ser registrados juntos por compatibilidade, nunca sozinhos.</li>
+</ul>
+
+<h2>O que registrar</h2>
+<ul>
+<li>Algoritmo e valor <strong>completo</strong> do hash (os 64 caracteres, não um trecho).</li>
+<li>Nome, caminho e tamanho em bytes do arquivo.</li>
+<li>Ferramenta e versão usadas.</li>
+<li>Data, hora e <strong>fuso horário</strong> do cálculo, e quem calculou.</li>
+<li>De onde o arquivo veio e como chegou até você.</li>
+</ul>
+
+<h2>Muitos arquivos</h2>
+<ul>
+<li>Gere um <strong>manifesto</strong> (um hash por arquivo, como o formato do <code>sha256sum</code>) e guarde-o fora da pasta que ele descreve.</li>
+<li>Registre o <strong>hash do próprio manifesto</strong>: um único valor passa a proteger a lista inteira.</li>
+<li>Para conferir, use o modo de verificação (<code>sha256sum -c</code>), que aponta exatamente o que divergiu ou faltou.</li>
+</ul>
+
+<h2>Erros comuns</h2>
+<ul>
+<li><strong>Confundir contêiner e conteúdo:</strong> o hash de um <code>.zip</code> é diferente do hash dos arquivos dentro dele.</li>
+<li><strong>Achar que “é o mesmo arquivo”:</strong> reenviar uma foto por aplicativo de mensagens, tirar um print, salvar de novo ou converter o formato quase sempre gera outro conteúdo e outro hash.</li>
+<li><strong>Confiar em metadados de data:</strong> datas de modificação mudam com cópias e downloads e não provam quando o conteúdo foi criado.</li>
+<li><strong>Comparar de olho</strong> em vez de usar o comando.</li>
+<li><strong>Tratar hash como autenticidade:</strong> hash mostra que não houve alteração desde o cálculo, não que o conteúdo é verdadeiro.</li>
+</ul>
+<p>Renomear um arquivo, por outro lado, não altera o hash: o nome fica no sistema de arquivos, não no conteúdo.</p>
+
+<h2>Guarde bem os registros</h2>
+<ul>
+<li>Mantenha os registros de hash separados dos arquivos e em mais de um lugar.</li>
+<li>Para arquivos importantes, mantenha mais de uma cópia, em mídias e locais diferentes, e confira periodicamente os hashes das cópias.</li>
+</ul>
+<p>Comandos prontos em <a href="/artigos/como-verificar-sha256sum-certutil/">como verificar um arquivo</a>. Versão para imprimir no <a href="/guia/">guia em PDF</a>, que tem um checklist de uma página.</p>
+<h2>Fontes</h2>
+<ul class="src"><li>ISO/IEC 27037: diretrizes para identificação, coleta, aquisição e preservação de evidência digital (referência técnica geral; versão vigente e adoção pela ABNT não conferidas pelo autor).</li><li><a href="https://csrc.nist.gov/pubs/fips/180-4/upd1/final">NIST FIPS 180-4: Secure Hash Standard (SHS)</a>.</li></ul>
+<p class="note">Este texto é didático e genérico. Ele não descreve procedimentos internos de nenhum órgão e não substitui a legislação, as normas técnicas nem o trabalho de profissional habilitado.</p>
+</article>
+</main>
+<footer class="ft"><div class="wrap">
+<div class="ft-top">
+<div><a class="brand" href="/"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="var(--acc)"/><path d="M10 6.5 8.6 17.5M15.4 6.5 14 17.5M6.5 10h11.5M6 14h11.5" stroke="var(--bg)" stroke-width="1.9" stroke-linecap="round"/></svg>Sabero</a><p>Integridade de arquivos e prova digital: ferramenta, guia e artigos em português.</p></div>
+<div><h2>Ferramenta</h2><ul><li><a href="/hash/">HashTabela</a></li></ul></div>
+<div><h2>Conteúdo</h2><ul><li><a href="/guia/">Guia em PDF</a></li><li><a href="/artigos/">Artigos</a></li></ul></div>
+<div><h2>Projeto</h2><ul><li><a href="/sobre/">Sobre</a></li><li><a href="https://github.com/fernandomenolli/hashtabela">Código-fonte</a></li></ul></div>
+</div>
+<div class="ft-legal">
+<p>Conteúdo educativo e genérico; não é orientação jurídica nem substitui perito, advogado ou as normas do órgão competente. Perfil pessoal: não fala por nenhuma instituição.</p>
+<p>Sem cookies, sem rastreadores, sem anúncios.</p>
+</div>
+</div></footer>
+<script>document.querySelector(".theme").onclick=function(){var d=document.documentElement,k=d.dataset.theme,n=(k?k=="dark":matchMedia("(prefers-color-scheme: dark)").matches)?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}}</script>
+</body>
+</html>

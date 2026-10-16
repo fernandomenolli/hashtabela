@@ -3,35 +3,126 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>sabero.io: HashTabela, SHA-256 no navegador</title>
-<meta name="description" content="Calcule o SHA-256 de vários arquivos no navegador, sem enviar nada. Grátis, sem cadastro e sem rastreadores.">
+<title>Sabero · Integridade de arquivos e prova digital</title>
+<meta name="description" content="Ferramenta gratuita para calcular SHA-256 no navegador, guia em PDF e artigos didáticos sobre hash, integridade de arquivos e cadeia de custódia.">
+<meta name="author" content="Fernando Menolli Neto">
 <link rel="canonical" href="https://sabero.io/">
-<meta property="og:site_name" content="sabero.io">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Sabero">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:type" content="website">
-<meta property="og:title" content="sabero.io: HashTabela, SHA-256 no navegador">
-<meta property="og:description" content="Calcule o SHA-256 de vários arquivos no navegador, sem enviar nada. Grátis, sem cadastro e sem rastreadores.">
+<meta property="og:title" content="Sabero · Integridade de arquivos e prova digital">
+<meta property="og:description" content="Ferramenta gratuita para calcular SHA-256 no navegador, guia em PDF e artigos didáticos sobre hash, integridade de arquivos e cadeia de custódia.">
 <meta property="og:url" content="https://sabero.io/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://sabero.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sabero: integridade de arquivos e prova digital">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "sabero.io", "url": "https://sabero.io/", "inLanguage": "pt-BR"}</script>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Sabero", "url": "https://sabero.io/", "inLanguage": "pt-BR"}</script>
 </head>
 <body>
-<header class="top"><div class="wrap">
-<a class="brand" href="/">sabero<span>.io</span></a>
-<nav aria-label="Principal"><a href="/hash/">HashTabela</a></nav>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="hd"><div class="wrap">
+<a class="brand" href="/" aria-label="Sabero, página inicial"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="var(--acc)"/><path d="M10 6.5 8.6 17.5M15.4 6.5 14 17.5M6.5 10h11.5M6 14h11.5" stroke="var(--bg)" stroke-width="1.9" stroke-linecap="round"/></svg>Sabero</a>
+<nav class="nav" aria-label="Principal"><a href="/hash/">HashTabela</a><a href="/guia/">Guia</a><a href="/artigos/">Artigos</a><a href="/sobre/">Sobre</a></nav>
+<button class="theme" type="button" aria-label="Alternar tema claro ou escuro" title="Alternar tema"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
 </div></header>
-<main class="wrap">
+<main id="main" class="wrap">
 <section class="hero">
-<h1>HashTabela: SHA-256 de vários arquivos, direto no navegador.</h1>
-<p class="lead">Calcule o SHA-256 de arquivos ou pastas sem enviar nada para lugar nenhum. Exporte tabela, CSV ou manifesto <code>.sha256</code> e verifique depois. Grátis, sem cadastro e sem rastreadores.</p>
-<p class="cta"><a class="btn pri" href="/hash/">Abrir a HashTabela</a></p>
+<div class="hero-h">
+<p class="eyebrow">Integridade de arquivos e prova digital</p>
+<h1>Prove que o arquivo não mudou.</h1>
+</div>
+<div>
+<p class="lead">Ferramenta, guia e artigos em português sobre hash SHA-256, integridade de arquivos e cadeia de custódia. Gratuito, sem cadastro e sem rastreadores.</p>
+<p class="cta"><a class="btn pri" href="/hash/">Abrir a HashTabela</a><a class="btn" href="/guia/">Baixar o guia (PDF)</a></p>
+</div>
+<div class="term" role="img" aria-label="Exemplo de terminal: sha256sum confere um manifesto e aponta um arquivo alterado">
+<div class="term-hd" aria-hidden="true"><span>terminal</span><span>GNU coreutils</span></div>
+<pre aria-hidden="true"><span class="c">$ sha256sum -c manifesto.sha256</span>
+fotos/IMG_0001.jpg: <span class="ok">OK</span>
+fotos/IMG_0002.jpg: <span class="ok">OK</span>
+fotos/IMG_0003.jpg: <span class="ok">OK</span>
+relatorio.pdf: <span class="bad">FAILED</span>
+sha256sum: WARNING: 1 computed checksum did NOT match</pre>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="s-tool">
+<div class="sec-hd"><div><p class="eyebrow">Ferramenta</p><h2 id="s-tool">HashTabela: o SHA-256 de uma pasta inteira, direto no navegador.</h2>
+<p>Gere a tabela para o relatório e um manifesto que o <code>sha256sum</code> confere depois. Os arquivos não saem do seu computador.</p></div>
+<a class="arrow" href="/hash/">Abrir a HashTabela</a></div>
+<div class="split">
+<ul class="facts">
+<li><b>Local</b><span>Sem upload, conta ou telemetria. Funciona offline.</span></li>
+<li><b>Exporta</b><span>Tabela para Word e Docs, CSV, HTML, TXT, PDF e manifesto <code>.sha256</code>.</span></li>
+<li><b>Verifica</b><span>Confere um manifesto e aponta o que está OK, divergente, faltando ou sobrando.</span></li>
+<li><b>Escala</b><span>Acima de 256 MB, lê em blocos de 8 MB, sem carregar o arquivo inteiro na memória.</span></li>
+</ul>
+<figure class="figure">
+<table class="sheet"><thead><tr><th class="num">Nº</th><th>Nome do arquivo</th><th class="num opt">Tamanho</th><th>SHA-256</th></tr></thead>
+<tbody><tr><td class="num">1</td><td>abc.txt</td><td class="num opt">3 bytes</td><td class="mono">ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad</td></tr>
+<tr><td class="num">2</td><td>vazio.txt</td><td class="num opt">0 bytes</td><td class="mono">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</td></tr></tbody></table>
+<figcaption>Saída da HashTabela para dois arquivos de teste. Confira com <code>printf 'abc' | sha256sum</code>.</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="s-guia">
+<div class="guide">
+<a href="/guia/" tabindex="-1" aria-hidden="true"><img class="cover" src="/assets/guia-capa.webp" width="640" height="906" alt="Capa do guia: Hash e integridade de arquivos na prova digital" loading="lazy"></a>
+<div>
+<p class="eyebrow">Guia em PDF</p>
+<h2 id="s-guia" class="h2">Hash e integridade de arquivos na prova digital</h2>
+<p class="lead">PDF gratuito, em português, para quem está começando ou já tem base técnica. Sem cadastro: o download é direto.</p>
+<ol class="toc"><li>Por que hash importa na prova digital</li><li>O que é uma função hash</li><li>As propriedades que importam</li><li>MD5 e SHA-1 x SHA-256</li><li>Integridade x autenticidade</li><li>Calculando o hash na prática (macOS, Linux e Windows)</li></ol>
+<p class="cta"><a class="btn pri" href="/guia/guia-hash-integridade.pdf" download>Baixar o PDF</a><a class="btn" href="/guia/">Ver o conteúdo</a><span class="note">17 páginas · A4 · 776 KB</span></p>
+<code class="hash"><b>SHA-256 do PDF</b>884d964fdc0ada1a70da53dd81141dbc349e5c9e9500a5e5e1de1746114cb2f2</code>
+</div>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="s-art">
+<div class="sec-hd"><div><p class="eyebrow">Artigos</p><h2 id="s-art">Textos curtos e didáticos, com as fontes de cada afirmação.</h2></div>
+<a class="arrow" href="/artigos/">Todos os artigos</a></div>
+<ul class="posts"><li><a href="/artigos/o-que-e-hash-sha-256/"><time datetime="2026-10-15">15 out 2026</time><h3>O que é hash e o que é SHA-256</h3><p>Função hash explicada sem mistério: tamanho fixo, efeito avalanche, colisões, por que MD5 e SHA-1 ficaram para trás e por que hash prova integridade, não autenticidade.</p><span class="arrow" aria-hidden="true"></span></a></li><li><a href="/artigos/como-verificar-sha256sum-certutil/"><time datetime="2026-10-15">15 out 2026</time><h3>Como verificar um arquivo com sha256sum, shasum ou certutil</h3><p>Passo a passo para calcular e conferir o SHA-256 de um arquivo no Linux (sha256sum), macOS (shasum) e Windows (certutil e Get-FileHash), sem instalar nada.</p><span class="arrow" aria-hidden="true"></span></a></li><li><a href="/artigos/cadeia-de-custodia-cpp-158-a-158-f/"><time datetime="2026-10-15">15 out 2026</time><h3>Cadeia de custódia no CPP: arts. 158-A a 158-F</h3><p>Resumo didático dos arts. 158-A a 158-F do Código de Processo Penal, incluídos pela Lei 13.964/2019: conceito, as dez etapas, central de custódia e o que a lei não diz sobre prova digital.</p><span class="arrow" aria-hidden="true"></span></a></li><li><a href="/artigos/lei-13964-2019-cadeia-de-custodia/"><time datetime="2026-10-15">15 out 2026</time><h3>Lei 13.964/2019: o que ela trouxe para a prova e o que a lei não diz</h3><p>A Lei 13.964/2019, conhecida como Pacote Anticrime, incluiu a cadeia de custódia no CPP. Datas, principais mudanças processuais e os pontos que a lei não resolve.</p><span class="arrow" aria-hidden="true"></span></a></li><li><a href="/artigos/boas-praticas-integridade-de-arquivos/"><time datetime="2026-10-15">15 out 2026</time><h3>Boas práticas de integridade de arquivos</h3><p>Checklist genérico para preservar e demonstrar a integridade de arquivos: quando calcular o hash, o que registrar, cópias, manifestos e os erros mais comuns.</p><span class="arrow" aria-hidden="true"></span></a></li></ul>
+</section>
+
+<section class="sec" aria-labelledby="s-sobre">
+<div class="split">
+<div class="about-h"><p class="eyebrow">Sobre</p><h2 id="s-sobre">Quem está por trás do Sabero</h2></div>
+<div class="about">
+<p><strong>Fernando Menolli Neto</strong> é desenvolvedor Ruby on Rails, formado em Sistemas de Informação. Constrói SaaS e escreve sobre prova digital e ferramentas open source.</p>
+<ul class="checks">
+<li>Projeto pessoal: não fala por nenhuma instituição.</li>
+<li>Sem cookies, analytics, anúncios ou scripts de terceiros.</li>
+<li>Código aberto, com correções bem-vindas pelas issues do repositório.</li>
+</ul>
+<p class="cta"><a class="arrow" href="/sobre/">Mais sobre o autor e o site</a></p>
+</div>
+</div>
 </section>
 </main>
-<footer class="foot"><div class="wrap">
+<footer class="ft"><div class="wrap">
+<div class="ft-top">
+<div><a class="brand" href="/"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="var(--acc)"/><path d="M10 6.5 8.6 17.5M15.4 6.5 14 17.5M6.5 10h11.5M6 14h11.5" stroke="var(--bg)" stroke-width="1.9" stroke-linecap="round"/></svg>Sabero</a><p>Integridade de arquivos e prova digital: ferramenta, guia e artigos em português.</p></div>
+<div><h2>Ferramenta</h2><ul><li><a href="/hash/">HashTabela</a></li></ul></div>
+<div><h2>Conteúdo</h2><ul><li><a href="/guia/">Guia em PDF</a></li><li><a href="/artigos/">Artigos</a></li></ul></div>
+<div><h2>Projeto</h2><ul><li><a href="/sobre/">Sobre</a></li><li><a href="https://github.com/fernandomenolli/hashtabela">Código-fonte</a></li></ul></div>
+</div>
+<div class="ft-legal">
+<p>Conteúdo educativo e genérico; não é orientação jurídica nem substitui perito, advogado ou as normas do órgão competente. Perfil pessoal: não fala por nenhuma instituição.</p>
 <p>Sem cookies, sem rastreadores, sem anúncios.</p>
+</div>
 </div></footer>
+<script>document.querySelector(".theme").onclick=function(){var d=document.documentElement,k=d.dataset.theme,n=(k?k=="dark":matchMedia("(prefers-color-scheme: dark)").matches)?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}}</script>
 </body>
 </html>

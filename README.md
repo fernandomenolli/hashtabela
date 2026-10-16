@@ -32,7 +32,7 @@ Na seção **Verificar manifesto**, carregue o `.sha256` e depois os arquivos ou
 
 ## Privacidade
 - Nenhum arquivo sai do seu computador: não há upload, conta, telemetria, CDN nem requisições de rede.
-- Uma Content-Security-Policy no próprio arquivo bloqueia qualquer conexão externa.
+- Uma Content-Security-Policy no próprio arquivo bloqueia qualquer conexão externa. Ela só libera fontes da mesma origem (`font-src 'self'`), usadas no visual do site; aberta via `file://`, a página cai para as fontes do sistema.
 
 ## Como o hash é calculado
 - Até 256 MB por arquivo: Web Crypto API do navegador (`crypto.subtle.digest`).
@@ -45,6 +45,9 @@ Na seção **Verificar manifesto**, carregue o `.sha256` e depois os arquivos ou
 - Linhas `#`: o `shasum -a 256 -c` do macOS (Perl) pode avisar sobre linhas mal formatadas, mas confere os hashes. No macOS, prefira `gsha256sum` (coreutils) ou o modo Verificar da própria página.
 - Testado no Chrome. Seleção de pasta e arrastar pastas dependem de suporte do navegador (Chrome, Edge, Firefox e Safari recentes).
 - Hash comprova integridade (o arquivo não mudou), não autenticidade.
+
+## Visual
+O site usa um design system único em `assets/style.css` (fontes self-hosted em `assets/fonts/`, tema claro e escuro). Como `hash/index.html` precisa funcionar sozinho e offline, ele embute uma cópia desse CSS no próprio `<style>`: ao mudar o `style.css`, atualize a cópia.
 
 ## Licença
 A definir.

@@ -2,4 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://sabero.io/</loc><lastmod>2026-10-15</lastmod></url>
   <url><loc>https://sabero.io/hash/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/guia/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/artigos/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/artigos/o-que-e-hash-sha-256/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/artigos/como-verificar-sha256sum-certutil/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/artigos/cadeia-de-custodia-cpp-158-a-158-f/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/artigos/lei-13964-2019-cadeia-de-custodia/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/artigos/boas-praticas-integridade-de-arquivos/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://sabero.io/sobre/</loc><lastmod>2026-10-15</lastmod></url>
 </urlset>
