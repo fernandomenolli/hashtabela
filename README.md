@@ -2,8 +2,10 @@
 
 Ferramenta gratuita, local e offline para calcular o **SHA-256** de vários arquivos e gerar uma tabela pronta para colar em documentos.
 
+Online em **https://sabero.io/hash/**. Este repositório também publica o hub estático [sabero.io](https://sabero.io) (home, `/guia/`, `/artigos/`, `/sobre/`) pelo GitHub Pages.
+
 ## Como usar
-1. Baixe `index.html` e abra com dois cliques (funciona via `file://`, sem internet).
+1. Use em https://sabero.io/hash/ ou baixe `hash/index.html` e abra com dois cliques (funciona via `file://`, sem internet).
 2. Clique em **Escolher arquivos**, **Escolher pasta** ou arraste arquivos/pastas para a área indicada.
 3. (Opcional) Preencha o cabeçalho: operador, referência, dispositivo de origem.
 4. (Opcional) Marque **Incluir data de modificação**.

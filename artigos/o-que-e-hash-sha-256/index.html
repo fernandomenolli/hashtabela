@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O que é hash e o que é SHA-256 · sabero.io</title>
+<meta name="description" content="Função hash explicada sem mistério: tamanho fixo, efeito avalanche, colisões, por que MD5 e SHA-1 ficaram para trás e por que hash prova integridade, não autenticidade.">
+<meta name="author" content="Fernando Menolli Neto">
+<link rel="canonical" href="https://sabero.io/artigos/o-que-e-hash-sha-256/">
+<meta property="og:site_name" content="sabero.io">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="O que é hash e o que é SHA-256">
+<meta property="og:description" content="Função hash explicada sem mistério: tamanho fixo, efeito avalanche, colisões, por que MD5 e SHA-1 ficaram para trás e por que hash prova integridade, não autenticidade.">
+<meta property="og:url" content="https://sabero.io/artigos/o-que-e-hash-sha-256/">
+<meta property="og:image" content="https://sabero.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="sabero.io: integridade de arquivos e prova digital">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "O que é hash e o que é SHA-256", "description": "Função hash explicada sem mistério: tamanho fixo, efeito avalanche, colisões, por que MD5 e SHA-1 ficaram para trás e por que hash prova integridade, não autenticidade.", "inLanguage": "pt-BR", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "author": {"@type": "Person", "name": "Fernando Menolli Neto", "url": "https://sabero.io/sobre/"}, "mainEntityOfPage": "https://sabero.io/artigos/o-que-e-hash-sha-256/"}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="/">sabero<span>.io</span></a>
+<nav aria-label="Principal"><a href="/hash/">HashTabela</a><a href="/guia/">Guia</a><a href="/artigos/" aria-current="page">Artigos</a><a href="/sobre/">Sobre</a></nav>
+</div></header>
+<main class="wrap">
+<article class="prose">
+<p class="crumb"><a href="/artigos/">Artigos</a></p>
+<h1>O que é hash e o que é SHA-256</h1>
+<p class="meta">Fernando Menolli Neto · atualizado em 15/10/2026</p>
+<p>Uma <strong>função hash</strong> recebe qualquer quantidade de dados (uma palavra, uma foto, um disco inteiro) e devolve um valor de <strong>tamanho fixo</strong>, que funciona como uma impressão digital daquele conteúdo. O <strong>SHA-256</strong> é uma dessas funções: o resultado sempre tem 256 bits, normalmente escritos como 64 caracteres hexadecimais.</p>
+<pre><code>$ printf 'abc' | sha256sum
+ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad  -
+$ printf 'Abc' | sha256sum
+06d90109c8cce34ec0c776950465421e176f08b831a938b3c6e76cb7bee8790b  -</code></pre>
+<p>Trocar uma única letra muda o resultado inteiro. Um arquivo vazio também tem hash (<code>e3b0c442…7852b855</code>), e um arquivo de vários gigabytes continua gerando 64 caracteres.</p>
+
+<h2>As propriedades que importam</h2>
+<ul>
+<li><strong>Determinismo:</strong> o mesmo conteúdo gera sempre o mesmo hash, em qualquer computador ou programa correto. É isso que permite conferir depois.</li>
+<li><strong>Efeito avalanche:</strong> uma mudança mínima na entrada produz um hash completamente diferente, sem semelhança visível com o anterior.</li>
+<li><strong>Resistência à pré-imagem:</strong> a partir do hash, não é viável descobrir o conteúdo original.</li>
+<li><strong>Resistência à colisão:</strong> não é viável encontrar dois conteúdos diferentes com o mesmo hash.</li>
+</ul>
+<p>Como existem infinitas entradas possíveis e só 2<sup>256</sup> saídas, colisões existem em teoria. A segurança está em ser inviável <em>encontrá-las</em> na prática.</p>
+
+<h2>Hash não é criptografia</h2>
+<p>Criptografia é reversível para quem tem a chave; hash não tem chave nem “descriptografia”. Ele também não comprime o arquivo: não é possível reconstruir o conteúdo a partir dos 64 caracteres.</p>
+
+<h2>Por que SHA-256, e não MD5 ou SHA-1</h2>
+<p>O MD5 tem colisões práticas publicadas desde 2004 (Wang e outros). No SHA-1, a primeira colisão completa foi divulgada em 2017 (projeto SHAttered, de pesquisadores do CWI e do Google), e uma colisão de prefixo escolhido, mais perigosa, em 2020. Em dezembro de 2022 o NIST anunciou a aposentadoria do SHA-1, recomendando a migração até 31/12/2030.</p>
+<p>O SHA-256 integra a família SHA-2, padronizada pelo NIST no FIPS 180-4, e não tem ataque prático de colisão conhecido publicamente. Registrar MD5 ou SHA-1 <em>além</em> do SHA-256, por compatibilidade com registros antigos, não é problema; usá-los <em>sozinhos</em> para demonstrar integridade é.</p>
+
+<h2>Integridade não é autenticidade</h2>
+<p>O hash mostra que um arquivo <strong>não mudou desde o momento em que o hash foi calculado</strong>. Ele não diz quem criou o arquivo, quando, nem se o conteúdo é verdadeiro. Um vídeo editado tem um hash perfeitamente válido: o hash do vídeo editado. Por isso o momento do cálculo e o registro de quem calculou importam tanto quanto o valor. Para vincular um arquivo a uma pessoa, usa-se assinatura digital, que é outro mecanismo.</p>
+<p>Veja também: <a href="/artigos/como-verificar-sha256sum-certutil/">como verificar um arquivo na prática</a>.</p>
+<h2>Fontes</h2>
+<ul class="src"><li><a href="https://csrc.nist.gov/pubs/fips/180-4/upd1/final">NIST FIPS 180-4: Secure Hash Standard (SHS)</a>.</li><li><a href="https://www.nist.gov/news-events/news/2022/12/nist-retires-sha-1-cryptographic-algorithm">NIST Retires SHA-1 Cryptographic Algorithm</a>, 15/12/2022.</li><li>STEVENS, M. et al. <a href="https://eprint.iacr.org/2017/190">The first collision for full SHA-1</a>. CRYPTO 2017.</li><li>WANG, X. et al. <a href="https://eprint.iacr.org/2004/199">Collisions for Hash Functions MD4, MD5, HAVAL-128 and RIPEMD</a>. IACR ePrint 2004/199.</li><li>LEURENT, G.; PEYRIN, T. <a href="https://eprint.iacr.org/2020/014">SHA-1 is a Shambles</a>. USENIX Security 2020.</li></ul>
+<p class="note">Este texto é didático e genérico. Ele não descreve procedimentos internos de nenhum órgão e não substitui a legislação, as normas técnicas nem o trabalho de profissional habilitado.</p>
+</article>
+</main>
+<footer class="foot"><div class="wrap">
+<p>Conteúdo educativo e genérico; não é orientação jurídica nem substitui perito, advogado ou as normas do órgão competente. Perfil pessoal: não fala por nenhuma instituição.</p>
+<p>Sem cookies, sem rastreadores, sem anúncios. · <a href="/sobre/">Sobre</a> · <a href="https://github.com/fernandomenolli/hashtabela">Código-fonte</a></p>
+</div></footer>
+</body>
+</html>

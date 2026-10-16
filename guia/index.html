@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia: hash e integridade de arquivos na prova digital · sabero.io</title>
+<meta name="description" content="Baixe grátis o guia em PDF sobre hash e integridade de arquivos: SHA-256, MD5 e SHA-1, comandos para Linux, macOS e Windows, cadeia de custódia no CPP e checklist.">
+<meta name="author" content="Fernando Menolli Neto">
+<link rel="canonical" href="https://sabero.io/guia/">
+<meta property="og:site_name" content="sabero.io">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Guia: hash e integridade de arquivos na prova digital">
+<meta property="og:description" content="Baixe grátis o guia em PDF sobre hash e integridade de arquivos: SHA-256, MD5 e SHA-1, comandos para Linux, macOS e Windows, cadeia de custódia no CPP e checklist.">
+<meta property="og:url" content="https://sabero.io/guia/">
+<meta property="og:image" content="https://sabero.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="sabero.io: integridade de arquivos e prova digital">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="/">sabero<span>.io</span></a>
+<nav aria-label="Principal"><a href="/hash/">HashTabela</a><a href="/guia/" aria-current="page">Guia</a><a href="/artigos/">Artigos</a><a href="/sobre/">Sobre</a></nav>
+</div></header>
+<main class="wrap">
+<article class="prose">
+<h1>Guia: hash e integridade de arquivos na prova digital</h1>
+<p class="lead">PDF gratuito, em português, para quem está começando ou já tem base técnica. Sem cadastro: o download é direto.</p>
+<p class="cta"><a class="btn pri" href="/guia/guia-hash-integridade.pdf" download>Baixar o PDF</a> <span class="note">17 páginas · A4 · 780 KB · edição de outubro de 2026</span></p>
+<h2>O que tem dentro</h2>
+<ol>
+<li>Por que hash importa na prova digital</li>
+<li>O que é uma função hash</li>
+<li>As propriedades que importam</li>
+<li>MD5 e SHA-1 x SHA-256</li>
+<li>Integridade x autenticidade</li>
+<li>Calculando o hash na prática (macOS, Linux e Windows)</li>
+<li>Erros comuns</li>
+<li>Cadeia de custódia no CPP (arts. 158-A a 158-F), com o texto conferido no Planalto</li>
+<li>Pontos jurídicos em aberto</li>
+<li>Ferramenta, referências e leituras</li>
+</ol>
+<p>E um checklist de uma página para imprimir.</p>
+<h2>Confira o arquivo</h2>
+<p>Coerente com o assunto: este é o SHA-256 do PDF publicado.</p>
+<pre><code>ca3c44b4aca6a0a14a13e256831abe6808f0bcf26070e96766dfe9ef9cd70974</code></pre>
+<pre><code>$ sha256sum guia-hash-integridade.pdf            # Linux
+$ shasum -a 256 guia-hash-integridade.pdf        # macOS
+&gt; certutil -hashfile guia-hash-integridade.pdf SHA256   # Windows</code></pre>
+<p class="note">Material educativo. Não é orientação jurídica, não descreve procedimentos internos de nenhum órgão e não trata de casos reais.</p>
+</article>
+</main>
+<footer class="foot"><div class="wrap">
+<p>Conteúdo educativo e genérico; não é orientação jurídica nem substitui perito, advogado ou as normas do órgão competente. Perfil pessoal: não fala por nenhuma instituição.</p>
+<p>Sem cookies, sem rastreadores, sem anúncios. · <a href="/sobre/">Sobre</a> · <a href="https://github.com/fernandomenolli/hashtabela">Código-fonte</a></p>
+</div></footer>
+</body>
+</html>
